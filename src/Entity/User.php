@@ -49,13 +49,13 @@ class User
 
     /**
      * @var string
-     * @ORM\Column(type="string", columnDefinition="enum('on','off','deleted'))
+     * @ORM\Column(type="string", columnDefinition="enum('on','off','deleted')")
      */
     protected $status = self::STATUS_OFF;
 
     /**
      * @var string
-     * @ORM\Column(type="string", columnDefinition="enum('male','female','undefined'))
+     * @ORM\Column(type="string", columnDefinition="enum('male','female','undefined')")
      */
     protected $gender = self::GENDER_UNDEFINED;
 
@@ -79,7 +79,7 @@ class User
 
     /**
      * @var string
-     * @ORM\Column(type="boolean", columnDefinition="enum('user','moderator','admin'))
+     * @ORM\Column(type="boolean", columnDefinition="enum('user','moderator','admin')")
      */
     protected $role = self::ROLE_USER;
 

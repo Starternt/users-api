@@ -65,12 +65,14 @@ class UsersController extends JsonApiController
      */
     public function create(Request $request): Response
     {
+        dump(666); exit();
+
         $apiRequest = $this->jsonApiService->parseRequest($request);
 
         /* @var $user UserDto */
         $user = $apiRequest->getBody()->data;
 
-        $user = $this->service->create($user);
+        // $user = $this->service->create($user);
 
         return $this->buildContentResponse($apiRequest, $user);
     }

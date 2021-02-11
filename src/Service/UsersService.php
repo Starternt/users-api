@@ -71,8 +71,8 @@ class UsersService
      * @param UsersMapper $mapper
      */
     public function __construct(
-        string $kafkaHost,
-        string $kafkaPort,
+        $kafkaHost = '',
+        $kafkaPort = '',
         EntityManagerInterface $em,
         EventDispatcherInterface $dispatcher,
         LoggerInterface $logger,
