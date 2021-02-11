@@ -12,6 +12,8 @@ use Reva2\JsonApi\Annotations\ApiResource;
 use Reva2\JsonApi\Annotations\Attribute;
 use Reva2\JsonApi\Annotations\Id;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\UserLogin;
+use App\Validator\UserEmail;
 
 /**
  * User DTO
@@ -20,6 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Dto
  *
  * @ApiResource(name="users")
+ * @UserLogin()
+ * @UserEmail()
  */
 class UserDto
 {
@@ -67,7 +71,8 @@ class UserDto
 
     /**
      * @var DateTimeInterface
-     * @Attribute()
+     * @Attribute(type="DateTime<Y-m-d>")
+     * @Assert\Type(type="\DateTimeInterface")
      */
     protected $birthday;
 

@@ -32,9 +32,21 @@ class UserSchema extends SchemaProvider
      */
     public function getAttributes($resource): array
     {
+        $birthday = $resource->getBirthday();
+        if (null !== $birthday) {
+            $birthday = $birthday->format('Y-m-d');
+        }
+
+        $createdAt = $resource->getCreatedAt()->format(DATE_ATOM);
+
         return [
-            'login' => $resource->getLogin(),
-            'email' => $resource->getEmail(),
+            'login'     => $resource->getLogin(),
+            'email'     => $resource->getEmail(),
+            'status'    => $resource->getStatus(),
+            'gender'    => $resource->getGender(),
+            'birthday'  => $birthday,
+            'createdAt' => $createdAt,
+            'role'      => $resource->getRole(),
         ];
     }
 }

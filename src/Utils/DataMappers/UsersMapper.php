@@ -26,6 +26,11 @@ class UsersMapper
     {
         return (new User())
             ->setId($userDto->getId())
+            ->setLogin($userDto->getLogin())
+            ->setPassword($userDto->getPassword())
+            ->setEmail($userDto->getEmail())
+            ->setGender($userDto->getGender())
+            ->setBirthday($userDto->getBirthday())
             ->setCreatedAt($userDto->getCreatedAt());
     }
 
@@ -40,6 +45,13 @@ class UsersMapper
     {
         return (new UserDto())
             ->setId($user->getId())
+            ->setLogin($user->getLogin())
+            ->setPassword($user->getPassword())
+            ->setEmail($user->getEmail())
+            ->setGender($user->getGender())
+            ->setBirthday($user->getBirthday())
+            ->setRole($user->getRole())
+            ->setStatus($user->getStatus())
             ->setCreatedAt($user->getCreatedAt());
     }
 }

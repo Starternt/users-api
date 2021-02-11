@@ -79,7 +79,7 @@ class User
 
     /**
      * @var string
-     * @ORM\Column(type="boolean", columnDefinition="enum('user','moderator','admin')")
+     * @ORM\Column(type="string", columnDefinition="enum('user','moderator','admin')")
      */
     protected $role = self::ROLE_USER;
 
