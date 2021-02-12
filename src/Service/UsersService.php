@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Dto\ActivationLinkParams;
 use App\Dto\UserDto;
 use App\Entity\ActivationLink;
 use App\Entity\User;
@@ -110,7 +111,7 @@ class UsersService
             $this->em->beginTransaction();
 
             $user = $this->mapper->toEntity($userDto);
-            $link = $this->createLink();
+            $link = $this->createLink($user);
             $kafkaMessage = ['email' => $user->getEmail(), 'token' => $link->getToken()];
 
             $this->em->persist($user);
@@ -139,14 +140,42 @@ class UsersService
     }
 
     /**
+     * @param ActivationLinkParams $params
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function activateUser(ActivationLinkParams $params)
+    {
+        try {
+            $this->em->beginTransaction();
+
+            $link = ($this->em->getRepository(ActivationLink::class))->findOneBy(['token' => $params->getToken()]);
+
+            $link->getUser()->setStatus(User::STATUS_ON);
+            $link->setIsActivated(true);
+            $this->em->flush();
+
+            $this->em->commit();
+        } catch (Exception $e) {
+            $this->em->rollback();
+
+            throw $e;
+        }
+    }
+
+    /**
      * Creates activation link
+     *
+     * @param User $user
      *
      * @return ActivationLink
      * @throws Exception
      */
-    private function createLink(): ActivationLink
+    private function createLink(User $user): ActivationLink
     {
         return (new ActivationLink())
+            ->setUser($user)
             ->setExpireAt(new DateTimeImmutable('now + 1 day', new DateTimeZone('UTC')))
             ->setToken(hash("sha256", rand()));
     }

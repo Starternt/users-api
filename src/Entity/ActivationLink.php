@@ -36,6 +36,13 @@ class ActivationLink
     protected $expireAt;
 
     /**
+     * @var User
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * Has link been activated or not
      *
      * @var bool
@@ -84,6 +91,26 @@ class ActivationLink
     public function setToken(string $token): ActivationLink
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return ActivationLink
+     */
+    public function setUser(User $user): ActivationLink
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     const ROLE_USER = 'user';
+    const STATUS_ON = 'on';
     const STATUS_OFF = 'off';
     const GENDER_UNDEFINED = 'undefined';
 

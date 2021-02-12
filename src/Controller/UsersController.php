@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Dto\ActivationLinkParams;
 use App\Dto\UserDto;
 use App\Service\UsersService;
 use App\Utils\JsonApi\JsonApiErrorsTrait;
@@ -73,5 +74,28 @@ class UsersController extends JsonApiController
         $user = $this->service->create($user);
 
         return $this->buildContentResponse($apiRequest, $user);
+    }
+
+    /**
+     * User activation
+     *
+     * @param Request $request
+     *
+     * @Route("/v1/users/activate", methods={"POST"}, name="users.activate")
+     * @ApiRequest(
+     *     query="App\Dto\ActivationLinkParams"
+     * )
+     * @return Response
+     * @throws Exception
+     */
+    public function activate(Request $request): Response
+    {
+        $apiRequest = $this->jsonApiService->parseRequest($request);
+
+        /** @var ActivationLinkParams $query */
+        $query = $apiRequest->getQuery();
+        $this->service->activateUser($query);
+
+        return $this->buildEmptyResponse($apiRequest, Response::HTTP_ACCEPTED);
     }
 }

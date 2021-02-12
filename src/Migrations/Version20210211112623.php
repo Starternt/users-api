@@ -24,9 +24,11 @@ final class Version20210211112623 extends AbstractMigration
                   `id` varchar(36) NOT NULL,
                   `token` varchar (75) NOT NULL,
                   `expire_at` datetime NOT NULL COMMENT \'Date and time when token expire\',
+                  `user_id` varchar(36) NOT NULL,
                   `activated` tinyint(1) NOT NULL DEFAULT 0 COMMENT \'Has token been activated or not\',
                   UNIQUE KEY `UQ_Token` (`token`),
-                  PRIMARY KEY (`id`)
+                  PRIMARY KEY (`id`),
+                  CONSTRAINT `FK_ActivationLinks_Users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;'
         );
     }
