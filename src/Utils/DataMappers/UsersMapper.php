@@ -27,7 +27,7 @@ class UsersMapper
         return (new User())
             ->setId($userDto->getId())
             ->setLogin($userDto->getLogin())
-            ->setPassword($userDto->getPassword())
+            ->setPassword(password_hash($userDto->getPassword(), PASSWORD_ARGON2I))
             ->setEmail($userDto->getEmail())
             ->setGender($userDto->getGender())
             ->setBirthday($userDto->getBirthday())

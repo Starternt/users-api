@@ -20,8 +20,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Service for posts
- *
  * @author Konstantin Laktionov <Starternh@gmail.com>
  * @package App\Service
  */

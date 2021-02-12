@@ -23,7 +23,7 @@ final class Version20210126002516 extends AbstractMigration
             'CREATE TABLE `users` (
                   `id` varchar(36) NOT NULL,
                   `login` varchar (75) NOT NULL,
-                  `password` varchar(50) NOT NULL,
+                  `password` varchar(255) NOT NULL,
                   `email` varchar(140) NOT NULL,
                   `status` enum(\'on\',\'off\',\'deleted\') DEFAULT \'off\' COMMENT \'On - user is active, off - inactive\',
                   `gender` enum(\'male\',\'female\',\'undefined\') DEFAULT \'undefined\',
