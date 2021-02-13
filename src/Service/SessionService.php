@@ -82,7 +82,9 @@ class SessionService
 
             $this->checkUserStatus($user, $sessionDto->getPassword());
 
-            $token = $this->jwtEncoder->encode(['login' => $user->getLogin(), 'exp' => time() + 3600]);
+            $token = $this->jwtEncoder->encode(
+                ['login' => $user->getLogin(), 'id' => (string)$user->getId(), 'exp' => time() + 3600]
+            );
 
             $sessionDto
                 ->setAccessToken($token)
