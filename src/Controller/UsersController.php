@@ -7,7 +7,6 @@ use App\Dto\UserDto;
 use App\Service\UsersService;
 use App\Utils\JsonApi\JsonApiErrorsTrait;
 use Exception;
-use Psr\Log\LoggerInterface;
 use Reva2\JsonApi\Annotations\ApiRequest;
 use Reva2\JsonApi\Contracts\Services\JsonApiServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,28 +24,20 @@ class UsersController extends JsonApiController
     use JsonApiErrorsTrait;
 
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * @var UsersService
      */
     protected $service;
 
     /**
      * @param JsonApiServiceInterface $jsonApiService
-     * @param LoggerInterface $logger
      * @param UsersService $service
      */
     public function __construct(
         JsonApiServiceInterface $jsonApiService,
-        LoggerInterface $logger,
         UsersService $service
     ) {
         parent::__construct($jsonApiService);
 
-        $this->logger = $logger;
         $this->service = $service;
     }
 

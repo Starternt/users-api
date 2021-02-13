@@ -16,8 +16,6 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ObjectRepository;
 use Exception;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Konstantin Laktionov <Starternh@gmail.com>
@@ -33,18 +31,6 @@ class UsersService
      * @var EntityManager
      */
     protected $em;
-
-    /**
-     * Event dispatcher
-     *
-     * @var EventDispatcherInterface
-     */
-    protected $dispatcher;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
 
     /**
      * @var UsersMapper
@@ -72,21 +58,15 @@ class UsersService
      * @param string $kafkaHost
      * @param string $kafkaPort
      * @param EntityManagerInterface $em
-     * @param EventDispatcherInterface $dispatcher
-     * @param LoggerInterface $logger
      * @param UsersMapper $mapper
      */
     public function __construct(
         $kafkaHost = '',
         $kafkaPort = '',
         EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher,
-        LoggerInterface $logger,
         UsersMapper $mapper
     ) {
         $this->em = $em;
-        $this->dispatcher = $dispatcher;
-        $this->logger = $logger;
         $this->mapper = $mapper;
         $this->kafkaHost = $kafkaHost;
         $this->kafkaPort = $kafkaPort;
@@ -130,7 +110,6 @@ class UsersService
 
             return $this->mapper->toDto($user);
         } catch (Exception $e) {
-            // todo add logging
             $this->em->rollback();
 
             throw $e;

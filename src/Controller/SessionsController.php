@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Dto\ActivationLinkParams;
-use App\Dto\UserDto;
 use App\Service\SessionService;
-use App\Service\UsersService;
 use App\Utils\JsonApi\JsonApiErrorsTrait;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -26,11 +23,6 @@ class SessionsController extends JsonApiController
     use JsonApiErrorsTrait;
 
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * @var SessionService
      */
     protected $service;
@@ -42,12 +34,10 @@ class SessionsController extends JsonApiController
      */
     public function __construct(
         JsonApiServiceInterface $jsonApiService,
-        LoggerInterface $logger,
         SessionService $service
     ) {
         parent::__construct($jsonApiService);
 
-        $this->logger = $logger;
         $this->service = $service;
     }
 
