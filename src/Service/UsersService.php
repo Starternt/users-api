@@ -51,18 +51,24 @@ class UsersService
      * @var ObjectRepository
      */
     protected $repository;
+    /**
+     * @var string
+     */
+    private $notificationsTopic;
 
     /**
      * Constructor
      *
      * @param string $kafkaHost
      * @param string $kafkaPort
+     * @param string $notificationsTopic
      * @param EntityManagerInterface $em
      * @param UsersMapper $mapper
      */
     public function __construct(
         $kafkaHost = '',
         $kafkaPort = '',
+        $notificationsTopic = '',
         EntityManagerInterface $em,
         UsersMapper $mapper
     ) {
@@ -71,6 +77,7 @@ class UsersService
         $this->kafkaHost = $kafkaHost;
         $this->kafkaPort = $kafkaPort;
         $this->repository = $em->getRepository(User::class);
+        $this->notificationsTopic = $notificationsTopic;
     }
 
     /**
@@ -101,7 +108,7 @@ class UsersService
             $producer->send(
                 [
                     [
-                        'topic' => 'notification-activation-links', // todo make ENV
+                        'topic' => $this->notificationsTopic,
                         'key'   => '',
                         'value' => json_encode($kafkaMessage),
                     ],

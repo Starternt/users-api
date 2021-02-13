@@ -32,6 +32,7 @@ ENV APP_DEBUG=false
 ENV LOG_OUTPUT=stream
 ENV LOG_LEVEL=WARNING
 ENV CLUSTER=production
+ENV NOTIFICATIONS_TOPIC_ENV=notification-activation-links
 
 ENTRYPOINT ["entry-point"]
 CMD ["consul-template", "-config", "/etc/consul-template/conf.hcl", "-exec", "php-fpm"]
